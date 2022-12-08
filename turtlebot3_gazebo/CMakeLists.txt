@@ -20,13 +20,18 @@ endif()
 # Find ament packages and libraries for ament and system dependencies
 ################################################################################
 find_package(ament_cmake REQUIRED)
-find_package(gazebo REQUIRED)
-find_package(gazebo_ros_pkgs REQUIRED)
+find_package(gazebo QUIET)
+find_package(gazebo_ros_pkgs QUIET)
 find_package(geometry_msgs REQUIRED)
 find_package(nav_msgs REQUIRED)
 find_package(rclcpp REQUIRED)
 find_package(sensor_msgs REQUIRED)
 find_package(tf2 REQUIRED)
+
+if ("${gazebo_ros_pkgs_DIR}" STREQUAL "gazebo_ros_pkgs_DIR-NOTFOUND")
+message(STATUS "gazebo or gazebo_ros_pkgs not found, not building with Classic Gazebo")
+ament_package()
+else()
 
 ################################################################################
 # Build
@@ -88,3 +93,4 @@ ament_export_dependencies(rclcpp)
 ament_export_dependencies(sensor_msgs)
 ament_export_dependencies(tf2)
 ament_package()
+endif()

@@ -43,8 +43,10 @@ def generate_launch_description():
     ign_resource_path = SetEnvironmentVariable(
         name='IGN_GAZEBO_RESOURCE_PATH',value=[
         os.path.join(get_package_prefix('turtlebot3_description'), "share"),
-        ":" +
-        os.path.join(get_package_share_directory('turtlebot3_gazebo'), "models")])
+        os.path.sep +
+        os.path.join(get_package_share_directory('turtlebot3_ignition'), "models") +
+        os.path.sep +
+        get_package_share_directory('turtlebot3_description')])
 
     republish_cmd = Node(
         package='turtlebot3_ignition',
@@ -67,7 +69,7 @@ def generate_launch_description():
         executable='create',
         output='screen',
         arguments=['-file', PathJoinSubstitution([
-                        get_package_share_directory('turtlebot3_gazebo'),
+                        get_package_share_directory('turtlebot3_ignition'),
                         "models",
                         world_name,
                         "model.sdf"]),
@@ -88,11 +90,12 @@ def generate_launch_description():
                               'launch', 'ign_gazebo.launch.py')]),
             launch_arguments=[('ign_args', [' -r -v 3 ' +
                               basic_world
-                              + ' ' + ' --gui-config ' +
-                              os.path.join(
-                                get_package_share_directory('turtlebot3_ignition'),
-                                "gui", "gui.config"
-                              )
+                              + ' '
+                              # + ' --gui-config ' +
+                              #os.path.join(
+                              #  get_package_share_directory('turtlebot3_ignition'),
+                              #  "gui", "gui.config"
+                              #)
                              ])]),
         DeclareLaunchArgument(
             'use_sim_time',

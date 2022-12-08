@@ -19,7 +19,7 @@ find_package(ament_cmake REQUIRED)
 find_package(rclcpp REQUIRED)
 find_package(geometry_msgs REQUIRED)
 
-install(DIRECTORY launch urdf config rviz gui worlds
+install(DIRECTORY launch urdf config rviz gui worlds models
   DESTINATION share/${PROJECT_NAME}
 )
 
@@ -29,5 +29,8 @@ ament_target_dependencies(cmd_republisher rclcpp geometry_msgs)
 install(TARGETS
   cmd_republisher
   DESTINATION lib/${PROJECT_NAME})
+
+ament_environment_hooks("${CMAKE_CURRENT_SOURCE_DIR}/hooks/${PROJECT_NAME}.dsv.in")
+
 
 ament_package()

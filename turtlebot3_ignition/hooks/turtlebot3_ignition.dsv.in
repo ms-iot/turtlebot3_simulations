@@ -1,0 +1,2 @@
+prepend-non-duplicate;IGN_GAZEBO_RESOURCE_PATH;share\turtlebot3_ignition\models
+prepend-non-duplicate;IGN_GAZEBO_RESOURCE_PATH;share\turtlebot3_description
